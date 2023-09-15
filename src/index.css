@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100;200;300;400;500;600;700&display=swap");
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+/* Your custom styles can go here */
+
+@layer utilities {
+  .product-cont {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scrollbar-width: none; /* Hide scrollbar on Firefox */
+  }
+
+  .product-cont::-webkit-scrollbar {
+    width: 0; /* Hide scrollbar on Webkit-based browsers */
+  }
+}
