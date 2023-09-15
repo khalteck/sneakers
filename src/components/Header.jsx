@@ -5,7 +5,7 @@ import { capitalize } from "./capitalize";
 import CartCont from "./CartCont";
 
 const Header = () => {
-  const { currentPage, cart, removeItem, user, userDetails, logout } =
+  const { currentPage, cart, removeItem, userDetails, logout } =
     useAppContext();
 
   const [openMenu, setOpenMenu] = useState(false);
@@ -202,25 +202,29 @@ const Header = () => {
                 Contact
               </li>
 
-              <li
-                onClick={() => {
-                  handleClick();
-                  navigate("/about");
-                }}
-                className="py-2 uppercase"
-              >
-                Login
-              </li>
-
-              <li
-                onClick={() => {
-                  handleClick();
-                  //   navigate("/contact");
-                }}
-                className="py-2 uppercase"
-              >
-                Sign Up
-              </li>
+              {!userDetails?.firstname && (
+                <>
+                  {" "}
+                  <li
+                    onClick={() => {
+                      handleClick();
+                      navigate("/about");
+                    }}
+                    className="py-2 uppercase"
+                  >
+                    Login
+                  </li>
+                  <li
+                    onClick={() => {
+                      handleClick();
+                      //   navigate("/contact");
+                    }}
+                    className="py-2 uppercase"
+                  >
+                    Sign Up
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         )}
