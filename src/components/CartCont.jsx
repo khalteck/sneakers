@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import { useAppContext } from "../contexts/AppContext";
-import ScrollToTop from "../ScrollToTop";
 
-const Checkout = () => {
-  const { cart, removeItem } = useAppContext();
+/* eslint-disable react/prop-types */
+const CartCont = ({ cart, handleOpenCart, removeItem }) => {
+  const navigate = useNavigate();
 
   function calcTotal() {
     let prices = [];
@@ -25,29 +23,30 @@ const Checkout = () => {
     return sum?.toFixed(2);
   }
 
-  const navigate = useNavigate();
   return (
-    <>
-      <Header />
-      <main className="mt-[100px] w-full min-h-screen bg-[#fefffe] px-3 lg:px-[180px] md:pt-10">
-        <h1 className="font-[600] text-[2rem]">Checkout</h1>
-
-        <section
-          id="collections"
-          className="w-full md:w-[70%] px-3 md:px-0 pt-10 flex flex-col gap-4"
-        >
-          <button
-            onClick={() => navigate("/")}
-            className="w-fit mb-4 ml-auto bg-[#fe7d1b] hover:bg-white hover:text-[#fe7d1b] border border-[#fe7d1b] flex items-center justify-center gap-1 px-5 md:px-8 py-2 rounded-sm text-white font-medium transition-all duration-300"
-          >
-            Continue shopping
-          </button>
+    <div className="absolute top-[80px] right-0 md:right-[100px] w-full md:w-[400px] max-h-[500px] overflow-y-auto shadow-xl bg-inherit">
+      <h1 className="font-bold text-[1.25rem] py-2 px-3 border-b border-black/20 flex justify-between items-center">
+        Cart ({cart?.length})
+        <img
+          onClick={handleOpenCart}
+          alt=""
+          src="/images/icon-close.svg"
+          className="w-5 h-5 cursor-pointer hover:scale-[1.1]"
+        />
+      </h1>
+      {cart?.length === 0 && (
+        <div className="w-full h-[100px] flex justify-center items-center text-gray-300 font-medium">
+          Nothing yet..
+        </div>
+      )}
+      {cart?.length > 0 && (
+        <div className="w-full min-h-[200px] justify-between p-3 flex flex-col gap-3 mb-4">
           {cart?.map((item, index) => {
             return (
               <div
                 key={index}
-                // onClick={() => navigate(`/product/${item?.item?.id}`)}
-                className="flex gap-3 mb-auto bg-gray-200/50 p-3 relative"
+                onClick={() => navigate(`/product/${item?.item?.id}`)}
+                className="flex gap-3 mb-auto bg-gray-200/50 p-3 relative cursor-pointer hover:bg-gray-200/90"
               >
                 <img
                   onClick={(e) => {
@@ -56,7 +55,7 @@ const Checkout = () => {
                   }}
                   alt=""
                   src="/images/icon-delete.svg"
-                  className="w-5 h-5 absolute top-2 right-2 cursor-pointer hover:scale-[1.1]"
+                  className="w-5 h-5 absolute top-1 right-1 cursor-pointer hover:scale-[1.1]"
                 />
                 <img
                   alt=""
@@ -79,16 +78,15 @@ const Checkout = () => {
             Total amount: ${calcTotal()}
           </p>
           <button
-            // onClick={() => navigate("/product/checkout")}
-            className="w-fit mt-auto bg-[#fe7d1b] hover:bg-white hover:text-[#fe7d1b] border border-[#fe7d1b] flex items-center justify-center gap-1 px-5 md:px-8 py-2 rounded-sm text-white font-medium transition-all duration-300"
+            onClick={() => navigate("/product/checkout")}
+            className="w-full mt-auto bg-[#fe7d1b] hover:bg-white hover:text-[#fe7d1b] border border-[#fe7d1b] flex items-center justify-center gap-1 px-5 md:px-8 py-2 rounded-sm text-white font-medium transition-all duration-300"
           >
-            Proceed to payment
+            Checkout
           </button>
-        </section>
-      </main>
-      <ScrollToTop />
-    </>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default Checkout;
+export default CartCont;

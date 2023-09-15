@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { capitalize } from "../components/capitalize";
 import Header from "../components/Header";
+import ProductCard from "../components/ProductCard";
 import Slider from "../components/Slider";
 import { useAppContext } from "../contexts/AppContext";
 import ScrollToTop from "../ScrollToTop";
@@ -33,7 +34,10 @@ const Homepage = () => {
 
   const products = groupByCategory();
 
-  console.log("data", groupByCategory());
+  function calculatePercent(number, percent) {
+    const result = (number * percent) / 100;
+    return result;
+  }
 
   return (
     <>
@@ -52,28 +56,11 @@ const Homepage = () => {
                 <div className="w-full flex gap-3 whitespace-nowrap overflow-x-auto mt-5 border-t border-[#fe7d1b] pt-4 product-cont">
                   {item?.map((itm, idx) => {
                     return (
-                      <div
+                      <ProductCard
                         key={idx}
-                        className="w-[280px] h-full flex gap-3 flex-col p-3 bg-[#fe7d1b]/10 cursor-pointer hover:border-[#fe7d1b] border hover:opacity-80 transition-all duration-300 relative"
-                      >
-                        <img
-                          alt=""
-                          src={itm?.thumbnail}
-                          className="w-full h-[220px] object-cover rounded-sm"
-                        />
-                        <p className="font-medium min-h-[50px]">
-                          {capitalize(itm?.title)}
-                        </p>
-                        <div>
-                          <p className="font-bold text-[1.1rem]">$125.00</p>
-                          <p>
-                            Rating: <span className="font-medium">3.9</span>
-                          </p>
-                        </div>
-                        <p className="text-[.75rem] bg-white p-1 w-fit absolute top-[195px] left-5">
-                          50 items left
-                        </p>
-                      </div>
+                        itm={itm}
+                        calculatePercent={calculatePercent}
+                      />
                     );
                   })}
                 </div>
