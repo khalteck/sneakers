@@ -265,6 +265,29 @@ const AppContextProvider = ({ children }) => {
     setShowPassword((prev) => !prev);
   }
 
+  //========================================================to handle search
+  const [openSearch, setOpenSearch] = useState(false);
+
+  function toggleSearch() {
+    setOpenSearch((prev) => !prev);
+    setsearchTerm("");
+  }
+
+  const [searchTerm, setsearchTerm] = useState("");
+  const [searchData, setsearchData] = useState([]);
+
+  function handleSearch() {
+    if (searchTerm) {
+      setOpenSearch(false);
+      navigate("/search");
+      const matchingData = data?.filter((item) =>
+        item?.title?.toLowerCase()?.includes(searchTerm?.toLowerCase())
+      );
+
+      setsearchData(matchingData);
+    }
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -289,6 +312,12 @@ const AppContextProvider = ({ children }) => {
         loginForm,
         regForm,
         userDetails,
+        toggleSearch,
+        openSearch,
+        searchData,
+        setsearchTerm,
+        handleSearch,
+        searchTerm,
       }}
     >
       {children}

@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { useAppContext } from "../contexts/AppContext";
 import ScrollToTop from "../ScrollToTop";
+import SearchCard from "../components/SearchCard";
 
 const Checkout = () => {
-  const { cart, removeItem } = useAppContext();
+  const { cart, removeItem, openSearch } = useAppContext();
 
   function calcTotal() {
     let prices = [];
@@ -29,6 +30,8 @@ const Checkout = () => {
   return (
     <>
       <Header />
+      {openSearch && <SearchCard />}
+
       <main className="mt-[100px] w-full min-h-screen bg-[#fefffe] px-3 lg:px-[180px] md:pt-10">
         <h1 className="font-[600] text-[2rem]">Checkout</h1>
 

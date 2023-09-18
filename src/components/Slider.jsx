@@ -6,8 +6,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
+import { useAppContext } from "../contexts/AppContext";
 
 const Slider = () => {
+  const { toggleSearch } = useAppContext();
+
   const content = (
     <>
       <div className="w-full h-full absolute top-0 left-0 bg-[#431407]/20 px-3 py-[100px] lg:px-[200px] lg:py-[150px]">
@@ -15,7 +18,15 @@ const Slider = () => {
           <h1 className="text-[1.75rem] md:text-[3rem] font-bold text-white leading-tight">
             We Sell
           </h1>
-          <div className="flex gap-3 md:flex-row flex-col">
+          <div className="flex gap-3 md:flex-row flex-col-reverse">
+            <button
+              onClick={() => {
+                toggleSearch();
+              }}
+              className="w-fit hover:bg-[#fe7d1b] bg-white text-[#fe7d1b] border border-[#fe7d1b] px-5 md:px-8 py-2 rounded-sm hover:text-white font-medium transition-all duration-300 whitespace-nowrap"
+            >
+              Search
+            </button>
             <button
               onClick={() => {
                 const element = document.getElementById("collections");
@@ -28,19 +39,6 @@ const Slider = () => {
               className="w-fit bg-[#fe7d1b] hover:bg-white hover:text-[#fe7d1b] border border-[#fe7d1b] px-5 md:px-8 py-2 rounded-sm text-white font-medium transition-all duration-300"
             >
               View Collections
-            </button>
-            <button
-              onClick={() => {
-                const element = document.documentElement;
-                element.scrollIntoView({
-                  behavior: "smooth",
-                  block: "end",
-                  inline: "nearest",
-                });
-              }}
-              className="w-fit hover:bg-[#fe7d1b] bg-white text-[#fe7d1b] border border-[#fe7d1b] px-5 md:px-8 py-2 rounded-sm hover:text-white font-medium transition-all duration-300 whitespace-nowrap"
-            >
-              Get In Touch
             </button>
           </div>
         </div>

@@ -5,7 +5,7 @@ import Loader from "./components/Loader";
 import { useAppContext } from "./contexts/AppContext";
 
 const Homepage = lazy(() => import("./pages/Homepage"));
-const About = lazy(() => import("./pages/About"));
+const SearchPage = lazy(() => import("./pages/SearchPage"));
 const Details = lazy(() => import("./pages/Details"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Login = lazy(() => import("./pages/Login"));
@@ -17,7 +17,7 @@ function App() {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/product/:id" element={<Details />} />
         <Route
           path="/product/checkout"

@@ -5,7 +5,7 @@ import { capitalize } from "./capitalize";
 import CartCont from "./CartCont";
 
 const Header = () => {
-  const { currentPage, cart, removeItem, userDetails, logout } =
+  const { currentPage, cart, removeItem, userDetails, logout, toggleSearch } =
     useAppContext();
 
   const [openMenu, setOpenMenu] = useState(false);
@@ -52,7 +52,7 @@ const Header = () => {
             Collections
           </li>
           <li
-            onClick={() => navigate("/about")}
+            // onClick={() => navigate("/about")}
             className={`h-full flex items-center cursor-pointer hover:text-[#fe7d1b] hover:border-[#fe7d1b] transition-all duration-300 border-b-4 ${
               currentPage === "/about"
                 ? "border-[#fe7d1b]"
@@ -73,11 +73,11 @@ const Header = () => {
             Contact
           </li>
         </ul>
-        <div className="md:gap-4 gap-3 items-center ml-auto flex">
+        <div className="md:gap-4 gap-2 items-center ml-auto flex">
           {currentPage !== "/product/checkout" && (
             <div
               onClick={handleOpenCart}
-              className="relative hover:scale-[1.1] cursor-pointer mr-3"
+              className="relative hover:scale-[1.1] cursor-pointer mr-2"
             >
               {cart?.length > 0 && (
                 <p className="absolute top-[-10px] right-[-10px] bg-[#fe7d1b] font-bold text-[.75rem] text-white px-2 rounded-full">
@@ -87,13 +87,16 @@ const Header = () => {
               <img alt="" src="/images/icon-cart.svg" className="w-6 h-6" />
             </div>
           )}
-          {/* <div className="relative bg-[#fe7d1b] p-1 rounded-full hover:scale-[1.1] cursor-pointer">
+          <div
+            onClick={toggleSearch}
+            className="relative bg-[#fe7d1b] p-1 rounded-full hover:scale-[1.1] cursor-pointer"
+          >
             <img
               alt=""
               src="/images/icons8-search-50-white.png"
               className="w-5 h-5"
             />
-          </div> */}
+          </div>
           {!userDetails?.firstname && (
             <div className="md:flex gap-2 hidden">
               <button
@@ -185,7 +188,7 @@ const Header = () => {
               <li
                 onClick={() => {
                   handleClick();
-                  navigate("/about");
+                  // navigate("/about");
                 }}
                 className="py-2 uppercase"
               >
@@ -208,7 +211,7 @@ const Header = () => {
                   <li
                     onClick={() => {
                       handleClick();
-                      navigate("/about");
+                      navigate("/login");
                     }}
                     className="py-2 uppercase"
                   >
@@ -217,7 +220,7 @@ const Header = () => {
                   <li
                     onClick={() => {
                       handleClick();
-                      //   navigate("/contact");
+                      navigate("/register");
                     }}
                     className="py-2 uppercase"
                   >

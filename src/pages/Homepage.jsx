@@ -6,9 +6,10 @@ import ProductCard from "../components/ProductCard";
 import Slider from "../components/Slider";
 import { useAppContext } from "../contexts/AppContext";
 import ScrollToTop from "../ScrollToTop";
+import SearchCard from "../components/SearchCard";
 
 const Homepage = () => {
-  const { fetchData, data } = useAppContext();
+  const { fetchData, data, openSearch } = useAppContext();
 
   useEffect(() => {
     if (data?.length === 0) {
@@ -42,6 +43,7 @@ const Homepage = () => {
   return (
     <>
       <Header />
+      {openSearch && <SearchCard />}
       <main className="h-[80px] md:mt-[100px] w-full min-h-screen bg-[#fefffe] md:px-10 lg:px-[180px] font-kumbh">
         <section className="w-full">
           <Slider />

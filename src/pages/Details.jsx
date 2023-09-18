@@ -5,9 +5,11 @@ import { capitalize } from "../components/capitalize";
 import Header from "../components/Header";
 import { useAppContext } from "../contexts/AppContext";
 import ScrollToTop from "../ScrollToTop";
+import SearchCard from "../components/SearchCard";
 
 const Details = () => {
-  const { data, addToCart, cart, removeItem, currentPage } = useAppContext();
+  const { data, addToCart, cart, removeItem, currentPage, openSearch } =
+    useAppContext();
 
   const { id } = useParams();
 
@@ -87,6 +89,8 @@ const Details = () => {
   return (
     <>
       <Header />
+      {openSearch && <SearchCard />}
+
       <main className="mt-[100px] w-full min-h-screen bg-[#fefffe] md:px-10 lg:px-[180px] pb-12 font-kumbh text-black">
         <section className="w-full flex md:flex-row flex-col gap-12 items-center md:pt-12 px-3">
           <div className="w-full flex flex-col gap3">
