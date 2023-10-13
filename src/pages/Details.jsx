@@ -119,7 +119,7 @@ const Details = () => {
               <img
                 alt=""
                 src={image}
-                className="w-full min-w-[200px] h-[400px] object-cover border-4 border-[#fe7d1b] rounded-sm"
+                className="w-full min-w-[200px] max-h-[600px] min-h-[400px] object-cover border-4 border-[#fe7d1b] rounded-sm"
               />
             </div>
             <div className="w-full flex flex-wrap gap-3 mt-4">
@@ -185,10 +185,12 @@ const Details = () => {
               </p>
             </div>
 
-            <p>
-              Added to cart, quantity:{" "}
-              <span className="font-bold">{itemToAdd?.quantity}</span>
-            </p>
+            {itemExixtsInCart && (
+              <p>
+                Added to cart, quantity:{" "}
+                <span className="font-bold">{itemToAdd?.quantity}</span>
+              </p>
+            )}
             <div className="w-full flex md:flex-row flex-col gap-3">
               <div
                 className={`w-[150px] md:w-[200px] h-[45px] flex bg-gray-100 border border-black/20 rounded-sm ${
