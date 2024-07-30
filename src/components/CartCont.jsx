@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../contexts/AppContext";
 
 /* eslint-disable react/prop-types */
 const CartCont = ({ cart, handleOpenCart, removeItem }) => {
+  const { emptyCart } = useAppContext();
   const navigate = useNavigate();
 
   function calcTotal() {
@@ -73,10 +75,17 @@ const CartCont = ({ cart, handleOpenCart, removeItem }) => {
             );
           })}
 
-          <p className="text-[1.25rem] font-bold">
-            {" "}
-            Total amount: ${calcTotal()}
-          </p>
+          <div className="w-full flex justify-between mb-5">
+            <p className="text-[1.25rem] font-bold">
+              Total amount: ${calcTotal()}
+            </p>
+            <button
+              onClick={emptyCart}
+              className="px-2 py-1 bg-gray-300 rounded-md text-[.85rem]"
+            >
+              Empty cart
+            </button>
+          </div>
           <button
             onClick={() => navigate("/product/checkout")}
             className="w-full mt-auto bg-[#fe7d1b] hover:bg-white hover:text-[#fe7d1b] border border-[#fe7d1b] flex items-center justify-center gap-1 px-5 md:px-8 py-2 rounded-sm text-white font-medium transition-all duration-300"

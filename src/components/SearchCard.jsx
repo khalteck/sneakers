@@ -5,7 +5,7 @@ const SearchCard = () => {
     useAppContext();
   return (
     <div className="w-full min-h-screen bg-black/90 fixed top-0 left-0 flex justify-center py-[200px] px-3 z-[999]">
-      <div className="w-full md:w-[550px] h-fit bg-white rounded-sm p-3 flex flex-col gap-3 relative">
+      <div className="w-full md:w-[550px] h-fit bg-white rounded-sm p-3 flex flex-col gap-3 relative slide">
         <div
           onClick={() => {
             toggleSearch();

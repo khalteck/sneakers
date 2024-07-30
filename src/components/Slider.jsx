@@ -7,9 +7,14 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
 import { useAppContext } from "../contexts/AppContext";
+import PropTypes from "prop-types";
 
 const Slider = () => {
-  const { toggleSearch } = useAppContext();
+  const { toggleSearch, setDisplayCollection } = useAppContext();
+
+  function toggleDisplayCollection() {
+    setDisplayCollection((prev) => !prev);
+  }
 
   const content = (
     <>
@@ -28,14 +33,7 @@ const Slider = () => {
               Search
             </button>
             <button
-              onClick={() => {
-                const element = document.getElementById("collections");
-                element.scrollIntoView({
-                  behavior: "smooth",
-                  block: "end",
-                  inline: "nearest",
-                });
-              }}
+              onClick={toggleDisplayCollection}
               className="w-fit bg-[#fe7d1b] hover:bg-white hover:text-[#fe7d1b] border border-[#fe7d1b] px-5 md:px-8 py-2 rounded-sm text-white font-medium transition-all duration-300"
             >
               View Collections
@@ -81,6 +79,10 @@ const Slider = () => {
       </Swiper>
     </div>
   );
+};
+
+Slider.propTypes = {
+  collections: PropTypes.array.isRequired,
 };
 
 export default Slider;

@@ -14,12 +14,9 @@ import { auth, db } from "../firebase/firebase-config";
 import {
   collection,
   doc,
-  // getDoc,
   getDocs,
-  // onSnapshot,
   query,
   setDoc,
-  // updateDoc,
   where,
 } from "firebase/firestore";
 
@@ -30,6 +27,8 @@ const AppContextProvider = ({ children }) => {
   const location = useLocation();
   let currentPage = location.pathname;
   const navigate = useNavigate();
+
+  const [displayCollection, setDisplayCollection] = useState(false);
 
   const [data, setdata] = useState(
     JSON.parse(localStorage.getItem("products")) || []
@@ -68,6 +67,11 @@ const AppContextProvider = ({ children }) => {
     const removed = newItems?.filter((_, idx) => idx !== index);
     localStorage.setItem("cart", JSON.stringify(removed));
     setcart(removed);
+  }
+
+  function emptyCart() {
+    localStorage.removeItem("cart");
+    setcart([]);
   }
 
   //=======================================to handle auth
@@ -318,6 +322,9 @@ const AppContextProvider = ({ children }) => {
         setsearchTerm,
         handleSearch,
         searchTerm,
+        emptyCart,
+        setDisplayCollection,
+        displayCollection,
       }}
     >
       {children}

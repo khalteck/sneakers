@@ -7,9 +7,10 @@ import Slider from "../components/Slider";
 import { useAppContext } from "../contexts/AppContext";
 import ScrollToTop from "../ScrollToTop";
 import SearchCard from "../components/SearchCard";
+import CollectionsCard from "../components/CollectionsCard";
 
 const Homepage = () => {
-  const { fetchData, data, openSearch } = useAppContext();
+  const { fetchData, data, openSearch, displayCollection } = useAppContext();
 
   useEffect(() => {
     if (data?.length === 0) {
@@ -40,18 +41,26 @@ const Homepage = () => {
     return result;
   }
 
+  const collections = products?.map((item) => {
+    return item[0]?.category;
+  });
+
+  // console.log("collections", collections);
+
   return (
     <>
       <Header />
       {openSearch && <SearchCard />}
+      {displayCollection && <CollectionsCard collections={collections} />}
+
       <main className="h-[80px] md:mt-[100px] w-full min-h-screen bg-[#fefffe] md:px-10 lg:px-[180px] font-kumbh">
         <section className="w-full">
-          <Slider />
+          <Slider collections={collections} />
         </section>
         <section id="collections" className="w-full px-3 md:px-0 pt-10">
           {products?.map((item, index) => {
             return (
-              <div key={index} className="mt-10">
+              <div key={index} id={item[0]?.category} className="mt-10">
                 <h1 className="font-[600] text-[2rem]">
                   {capitalize(item[0]?.category)}
                 </h1>
@@ -73,6 +82,7 @@ const Homepage = () => {
 
         <section className="w-full min-h-[300px]"></section>
       </main>
+
       <ScrollToTop />
     </>
   );
