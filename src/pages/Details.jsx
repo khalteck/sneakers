@@ -58,26 +58,47 @@ const Details = () => {
   });
 
   function increase() {
-    if (!itemExixtsInCart) {
-      setItemToAdd((prev) => ({
-        ...prev,
-        quantity:
-          prev.quantity < currentProduct?.stock
-            ? prev.quantity + 1
-            : prev.quantity,
-      }));
-      if (itemExixtsInCart) {
-        addToCart(itemToAdd);
-      }
+    const newQuantity =
+      itemToAdd.quantity < currentProduct?.stock
+        ? itemToAdd.quantity + 1
+        : itemToAdd.quantity;
+
+    setItemToAdd((prev) => ({
+      ...prev,
+      quantity: newQuantity,
+    }));
+
+    // If item is in cart, update it
+    if (itemExixtsInCart) {
+      const index = cart?.findIndex((x) => x?.item?.id === currentProduct?.id);
+      const updatedCart = [...cart];
+      updatedCart[index] = {
+        ...updatedCart[index],
+        quantity: newQuantity,
+      };
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      window.dispatchEvent(new Event("storage"));
     }
   }
 
   function decrease() {
-    if (!itemExixtsInCart) {
-      setItemToAdd((prev) => ({
-        ...prev,
-        quantity: prev.quantity > 0 ? prev.quantity - 1 : 0,
-      }));
+    const newQuantity = itemToAdd.quantity > 1 ? itemToAdd.quantity - 1 : 1;
+
+    setItemToAdd((prev) => ({
+      ...prev,
+      quantity: newQuantity,
+    }));
+
+    // If item is in cart, update it
+    if (itemExixtsInCart) {
+      const index = cart?.findIndex((x) => x?.item?.id === currentProduct?.id);
+      const updatedCart = [...cart];
+      updatedCart[index] = {
+        ...updatedCart[index],
+        quantity: newQuantity,
+      };
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      window.dispatchEvent(new Event("storage"));
     }
   }
 
@@ -85,6 +106,7 @@ const Details = () => {
     if (itemExixtsInCart) {
       const index = cart?.findIndex((x) => x?.item?.id === currentProduct?.id);
       removeItem(index);
+      setItemToAdd({ quantity: 1, item: currentProduct });
     } else {
       addToCart(itemToAdd);
     }
@@ -196,16 +218,10 @@ const Details = () => {
               </p>
             )}
             <div className="w-full flex md:flex-row flex-col gap-3">
-              <div
-                className={`w-[150px] md:w-[200px] h-[45px] flex bg-gray-100 border border-black/20 rounded-sm ${
-                  itemExixtsInCart && "opacity-50 cursor-not-allowed"
-                }`}
-              >
+              <div className="w-[150px] md:w-[200px] h-[45px] flex bg-gray-100 border border-black/20 rounded-sm">
                 <div
                   onClick={decrease}
-                  className={`w-full h-full flex justify-center items-center hover:bg-gray-200 ${
-                    itemExixtsInCart ? "cursor-not-allowed" : "cursor-pointer"
-                  }`}
+                  className="w-full h-full flex justify-center items-center hover:bg-gray-200 cursor-pointer"
                 >
                   <img
                     alt=""
@@ -218,9 +234,7 @@ const Details = () => {
                 </div>
                 <div
                   onClick={increase}
-                  className={`w-full h-full flex justify-center items-center hover:bg-gray-200 ${
-                    itemExixtsInCart ? "cursor-not-allowed" : "cursor-pointer"
-                  }`}
+                  className="w-full h-full flex justify-center items-center hover:bg-gray-200 cursor-pointer"
                 >
                   <img
                     alt=""
@@ -231,11 +245,7 @@ const Details = () => {
               </div>
               <button
                 onClick={handleAddItem}
-                className={`w-full border border-[#fe7d1b] flex items-center justify-center gap-1 px-5 md:px-8 py-2 rounded-sm text-white font-medium transition-all duration-300 ${
-                  itemToAdd?.quantity === 0
-                    ? "bg-[#fe7d1b]/50 cursor-not-allowed"
-                    : "bg-[#fe7d1b]  hover:bg-white hover:text-[#fe7d1b]"
-                }`}
+                className="w-full border border-[#fe7d1b] flex items-center justify-center gap-1 px-5 md:px-8 py-2 rounded-sm text-white font-medium transition-all duration-300 bg-[#fe7d1b] hover:bg-white hover:text-[#fe7d1b]"
               >
                 <div className="w-fit h-fit rounded-full bg-gray-100 p-1">
                   {" "}
@@ -248,9 +258,6 @@ const Details = () => {
                 {itemExixtsInCart ? "Remove from cart" : "Add to cart"}
               </button>
             </div>
-            {itemExixtsInCart && (
-              <p>*Remove from cart before changing quantity</p>
-            )}
           </div>
         </section>
       </main>

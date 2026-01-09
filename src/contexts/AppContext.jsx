@@ -56,6 +56,17 @@ const AppContextProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("cart")) || []
   );
 
+  // Listen for storage changes to keep cart in sync
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
+      setcart(updatedCart);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
   function addToCart(item) {
     const newItems = [...cart, item];
     localStorage.setItem("cart", JSON.stringify(newItems));

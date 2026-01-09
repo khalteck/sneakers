@@ -10,6 +10,8 @@ const Details = lazy(() => import("./pages/Details"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 function App() {
   const { userDetails } = useAppContext();
@@ -25,6 +27,8 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Suspense>
   );

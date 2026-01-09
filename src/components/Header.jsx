@@ -52,7 +52,7 @@ const Header = () => {
             Collections
           </li>
           <li
-            // onClick={() => navigate("/about")}
+            onClick={() => navigate("/about")}
             className={`h-full flex items-center cursor-pointer hover:text-[#fe7d1b] hover:border-[#fe7d1b] transition-all duration-300 border-b-4 ${
               currentPage === "/about"
                 ? "border-[#fe7d1b]"
@@ -63,7 +63,7 @@ const Header = () => {
           </li>
 
           <li
-            // onClick={() => navigate("/contact")}
+            onClick={() => navigate("/contact")}
             className={`h-full flex items-center cursor-pointer hover:text-[#fe7d1b] hover:border-[#fe7d1b] transition-all duration-300 border-b-4 ${
               currentPage === "/contact"
                 ? "border-[#fe7d1b]"
@@ -188,7 +188,7 @@ const Header = () => {
               <li
                 onClick={() => {
                   handleClick();
-                  // navigate("/about");
+                  navigate("/about");
                 }}
                 className="py-2 uppercase"
               >
@@ -198,7 +198,7 @@ const Header = () => {
               <li
                 onClick={() => {
                   handleClick();
-                  //   navigate("/contact");
+                  navigate("/contact");
                 }}
                 className="py-2 uppercase"
               >
